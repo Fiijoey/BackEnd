@@ -4,3 +4,148 @@
 *:after {
   box-sizing: border-box;
 }
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+#wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+main {
+  margin: auto;
+}
+
+header a {
+  text-decoration: none;
+  color: black;
+}
+
+.siteName {
+  font-size: 2em;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+#tools a {
+  font-size: 1.5em;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-size: 2em;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+p {
+  font-size: 1.2em;
+  font-family: Arial, sans-serif;
+}
+
+/********** Navigation styles ************/
+nav {
+  background-color: #1b1818;
+  color: white;
+}
+
+nav ul {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 1em;
+  list-style: none;
+  font-size: 1.2em;
+}
+
+
+/********** body styles ************/
+
+.hero {
+  position: relative;
+}
+
+.hero-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.tag {
+  background-color: rgba(255, 255, 255, 0.616);
+  color: rgb(68, 129, 198);
+  display: inline-block;
+  width: auto;
+}
+
+.tag h1 {
+  font-size: 3em;
+}
+
+.tag p {
+  font-size: 1.5em;
+  margin: auto;
+}
+
+.cta {
+  padding: 1rem 0rem 1rem;
+}
+
+.reviews {
+  padding: 2rem 0rem;
+}
+
+.reviews li {
+  font-size: 1.5em;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.card img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.photo-bg {
+  background-color: rgb(68, 129, 198);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: solid 1px black;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.links {
+  padding-bottom: 2rem;
+}
+
+.links a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+  display: block;
+  text-align: center;
+}
