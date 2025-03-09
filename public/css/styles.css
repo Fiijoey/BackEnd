@@ -15,7 +15,7 @@ header {
 }
 
 #wrapper {
- 
+
   position: relative;
   z-index: -1;
   max-width: 750px;
@@ -71,7 +71,6 @@ nav ul {
   justify-content: space-between;
   max-width: 750px;
   margin: 0 auto;
-  padding: 1em;
   list-style: none;
   font-size: 1.2em;
 }
@@ -155,6 +154,15 @@ nav ul {
   text-align: center;
 }
 
+nav li {
+  padding: 1.5rem;
+}
+
+nav li :hover {
+  background-color: rgb(68, 129, 198);
+  cursor: pointer;
+}
+
 @media (min-width: 780px) {
   body {
     background-image: url('../images/site/small_check.jpg');
@@ -170,32 +178,38 @@ nav ul {
   nav ul {
     max-width: 1010px;
   }
-  nav{
+
+  nav {
     padding: .5rem;
     margin: .5rem;
   }
-  nav ul{
+
+  nav ul {
     margin-left: 5rem;
     margin-right: 5rem;
   }
-  .desk{
+
+  .desk {
     padding: 1rem;
     padding-top: 5rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
- 
+
   .upgrades {
     grid-column: 1;
     grid-row: 1;
   }
+
   .tag {
     margin-left: 3rem;
   }
+
   .tag h2 {
     font-size: 2.5em;
   }
+
   .tag p {
     font-size: 2em;
   }
