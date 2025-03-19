@@ -17,7 +17,7 @@ header {
 #wrapper {
 
   position: relative;
-  z-index: -1;
+  z-index: 0;
   max-width: 750px;
   margin: 0 auto;
   background-color: rgb(255, 255, 255);
@@ -61,7 +61,7 @@ p {
 /********** Navigation styles ************/
 nav {
   background-color: #1b1818;
-  color: white;
+  padding: 1rem;
 }
 
 nav ul {
@@ -69,12 +69,28 @@ nav ul {
   font-weight: bold;
   display: flex;
   justify-content: space-between;
-  max-width: 750px;
-  margin: 0 auto;
+  align-items: center;
+  margin: 0;
+  padding: 0;
   list-style: none;
-  font-size: 1.2em;
+  width: 90%;
 }
 
+nav li {
+  padding: 0.5rem;
+  flex: 1;
+  text-align: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgb(146, 156, 160);
+  font-size: 0.7rem;
+}
+
+nav li:hover {
+  background-color: white;
+}
 
 /********** body styles ************/
 
@@ -187,6 +203,10 @@ nav li :hover {
   nav ul {
     margin-left: 5rem;
     margin-right: 5rem;
+  }
+
+  nav a {
+    font-size: 1.5em;
   }
 
   .desk {
