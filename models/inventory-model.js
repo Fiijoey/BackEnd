@@ -27,5 +27,25 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-module.exports = { getClassifications };
-module.exports = { getClassifications, getInventoryByClassificationId };
+/* ***************************
+ *  Fetch vehicle details by ID
+ * ************************** */
+async function getVehicleById(vehicleId) {
+  try {
+    const query = "SELECT * FROM inventory WHERE id = $1"; // Adjust based on your table schema
+    const result = await pool.query(query, [vehicleId]);
+    return result.rows[0]; // Return the first row of the result
+  } catch (error) {
+    console.error("Database query error:", error);
+    throw error;
+  }
+}
+
+// Group all functions into an object for export
+const invModel = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getVehicleById,
+};
+
+module.exports = invModel;
