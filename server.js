@@ -43,7 +43,8 @@ app.use(async (err, req, res, next) => {
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   res.render("errors/error", {
     title: err.status || "Server Error",
-    message: err.message,
+    message:
+      "Sorry, maybe was an accident or we can not find the page you are looking for.",
     nav,
   });
 });

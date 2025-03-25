@@ -1,8 +1,27 @@
+<h1>
+    <%= vehicleData.make %>
+        <%= vehicleData.model %>
+</h1>
 
-    <h1><%= vehicleData.make %> <%= vehicleData.model %></h1>
+<div class="detail_container">
     <img src="<%= vehicleData.image %>" alt="<%= vehicleData.make %> <%= vehicleData.model %>" class="vehicle-image">
-    <p><strong>Year:</strong> <%= vehicleData.year %></p>
-    <p><strong>Price:</strong> <%= vehicleData.price %></p>
-    <p><strong>Mileage:</strong> <%= vehicleData.mileage %> miles</p>
-    <p><strong>Description:</strong> <%= vehicleData.description %></p>
-    <p><strong>Color:</strong> <%= vehicleData.color %></p>
+
+    <div class="vehi_spec">
+        <p><strong>Year:</strong>
+            <%= vehicleData.year %>
+        </p>
+        <p><strong>Price:</strong>
+            <%= vehicleData.price %>
+        </p>
+        <p><strong>Mileage:</strong>
+            <%= vehicleData.mileage %> miles
+        </p>
+        <p><strong>Color:</strong>
+            <%= vehicleData.color %>
+        </p>
+    </div>
+</div>
+
+<p class="vehi_desc"><strong>Description:</strong>
+    <%= vehicleData.description %>
+</p>
