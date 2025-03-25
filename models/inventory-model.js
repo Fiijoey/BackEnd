@@ -32,7 +32,7 @@ async function getInventoryByClassificationId(classification_id) {
  * ************************** */
 async function getVehicleById(vehicleId) {
   try {
-    const query = "SELECT * FROM inventory WHERE id = $1"; // Adjust based on your table schema
+    const query = "SELECT * FROM inventory WHERE inv_id = $1"; // Adjust based on your table schema
     const result = await pool.query(query, [vehicleId]);
     return result.rows[0]; // Return the first row of the result
   } catch (error) {
