@@ -1,5 +1,9 @@
 const { Pool } = require("pg");
 require("dotenv").config();
+
+// Suppress deprecation warnings for util.isArray used by pg module
+// Remove this when pg module updates to use Array.isArray()
+process.noDeprecation = true;
 /* ***************
  * Connection Pool
  * SSL Object needed for local testing of app

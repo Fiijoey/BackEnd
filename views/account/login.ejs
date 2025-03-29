@@ -2,6 +2,7 @@
   <h1>
     <%= title %>
   </h1>
+  <p> <%- messages() %> </p>
   <form method="POST" action="/account/login">
     <div>
       <input type="email" name="email" placeholder="Email Address" required>

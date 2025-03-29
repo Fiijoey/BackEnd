@@ -8,5 +8,9 @@ const utilities = require("../utilities");
 router.get("/login", utilities.handleError(accountController.buildLogin));
 router.post("/login", utilities.handleError(accountController.processLogin));
 router.get("/register", utilities.handleError(accountController.buildRegister));
+router.post(
+  "/register",
+  utilities.handleError(accountController.registerAccount)
+);
 
 module.exports = router;
