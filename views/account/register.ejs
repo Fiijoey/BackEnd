@@ -3,10 +3,14 @@
     <%= title %>
   </h1>
 
-  <% if (messages() && messages().error) { %>
-    <div class="flash-message error">
-      <%= messages().error %>
-    </div>
+  <% if (errors) { %>
+    <ul class="error">
+      <% errors.forEach(error=> { %>
+        <li>
+          <%= error.msg %>
+        </li>
+        <% }) %>
+    </ul>
     <% } %>
 
       <form method="POST" action="/account/register">
