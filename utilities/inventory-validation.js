@@ -46,6 +46,7 @@ validate.checkClassificationData = async (req, res, next) => {
  */
 validate.inventoryRules = () => {
   return [
+    // Ensures that the classification_id field, selected from the dropdown, is not empty and is a valid number.
     body("classification_id")
       .trim()
       .escape()

@@ -98,6 +98,7 @@ Util.handleError = function (controller) {
 
 /* **************************************
  * Build the classification select list
+ * This function generates a select element where each option's value is the classification_id.
  * ************************************ */
 Util.buildClassificationList = async function (
   selectedClassificationId = null

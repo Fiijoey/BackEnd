@@ -62,6 +62,7 @@ async function insertInventory(inventoryData) {
   try {
     const sql = `
       INSERT INTO public.inventory (
+       
         inv_make,
         inv_model,
         inv_year,
@@ -71,7 +72,8 @@ async function insertInventory(inventoryData) {
         inv_price,
         inv_miles,
         inv_color,
-        classification_id
+        classification_id,
+       
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING inv_id

@@ -150,7 +150,6 @@ invCont.buildAddInventory = async function (req, res, next) {
 invCont.addInventory = async function (req, res, next) {
   try {
     const {
-      classification_id,
       make,
       model,
       year,
@@ -160,9 +159,15 @@ invCont.addInventory = async function (req, res, next) {
       price,
       miles,
       color,
+      classification_id,
     } = req.body;
+
+    // Validate classification_id exists
+    if (!classification_id) {
+      throw new Error("Classification is required");
+    }
+
     const inventoryData = {
-      classification_id: parseInt(classification_id, 10),
       inv_make: make,
       inv_model: model,
       inv_year: year,
@@ -172,6 +177,7 @@ invCont.addInventory = async function (req, res, next) {
       inv_price: Math.round(parseFloat(price)),
       inv_miles: parseInt(miles, 10),
       inv_color: color,
+      classification_id: parseInt(classification_id, 10),
     };
 
     // Log the data being sent to the database for debugging
@@ -181,7 +187,7 @@ invCont.addInventory = async function (req, res, next) {
     if (result) {
       console.log("Vehicle added successfully with ID:", result.inv_id);
       req.flash("success", "Vehicle added successfully");
-      res.redirect("/inventory/inv");
+      res.redirect("/inv");
     } else {
       req.flash("error", "Error adding vehicle");
       res.status(500).render("./inventory/add-inventory", {
