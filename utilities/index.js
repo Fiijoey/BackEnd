@@ -96,4 +96,28 @@ Util.handleError = function (controller) {
   };
 };
 
+/* **************************************
+ * Build the classification select list
+ * ************************************ */
+Util.buildClassificationList = async function (
+  selectedClassificationId = null
+) {
+  let data = await require("../models/inventory-model").getClassifications();
+  let classificationList =
+    '<select name="classification_id" id="classification_id" required>';
+  classificationList += "<option value=''>Choose a Classification</option>";
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"';
+    if (
+      selectedClassificationId &&
+      row.classification_id == selectedClassificationId
+    ) {
+      classificationList += " selected";
+    }
+    classificationList += ">" + row.classification_name + "</option>";
+  });
+  classificationList += "</select>";
+  return classificationList;
+};
+
 module.exports = Util;

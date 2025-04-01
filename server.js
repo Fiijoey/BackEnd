@@ -12,6 +12,7 @@ const env = require("dotenv").config();
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
+const invController = require("./controllers/invController");
 const utilities = require("./utilities");
 const session = require("express-session");
 const pool = require("./database/");
@@ -64,6 +65,8 @@ app.get("/", baseController.buildHome);
 app.use("/inv", inventoryRoute);
 //Account Routes
 app.use("/account", accountRoute);
+// Direct route to inventory management
+app.get("/inv", invController.buildInvManagement);
 //File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." });

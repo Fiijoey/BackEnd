@@ -1,0 +1,114 @@
+<div class="view-container">
+    <h1>Add New Vehicle</h1>
+
+    <!-- Flash message display -->
+    <% if (typeof flashMessage !=='undefined' ) { %>
+        <p class="flash-message">
+            <%= flashMessage %>
+        </p>
+        <% } %>
+
+            <!-- Error message display -->
+            <% if (errors && errors.length> 0) { %>
+                <ul class="error-messages">
+                    <% errors.forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+
+                    <form action="/inventory/add-inventory" method="POST" id="add-vehicle-form">
+                        <!-- Classification dropdown -->
+                        <div class="form-group">
+                            <label for="classification_id">Classification:</label>
+                            <%- classifications %>
+                        </div>
+
+                        <!-- Vehicle make -->
+                        <div class="form-group">
+                            <label for="make">Make:</label>
+                            <input type="text" id="make" name="make" value="<%= stickyData?.make || '' %>" required>
+                        </div>
+
+                        <!-- Vehicle model -->
+                        <div class="form-group">
+                            <label for="model">Model:</label>
+                            <input type="text" id="model" name="model" value="<%= stickyData?.model || '' %>" required>
+                        </div>
+
+                        <!-- Vehicle year -->
+                        <div class="form-group">
+                            <label for="year">Year:</label>
+                            <input type="number" id="year" name="year" value="<%= stickyData?.year || '' %>" min="1900"
+                                max="2100" required>
+                        </div>
+
+                        <!-- Vehicle price -->
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="number" id="price" name="price" value="<%= stickyData?.price || '' %>"
+                                step="0.01" required>
+                        </div>
+
+                        <!-- Vehicle miles -->
+                        <div class="form-group">
+                            <label for="miles">Miles:</label>
+                            <input type="number" id="miles" name="miles" value="<%= stickyData?.miles || '' %>"
+                                required>
+                        </div>
+
+                        <!-- Vehicle color -->
+                        <div class="form-group">
+                            <label for="color">Color:</label>
+                            <input type="text" id="color" name="color" value="<%= stickyData?.color || '' %>" required>
+                        </div>
+
+                        <!-- Vehicle description -->
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <textarea id="description" name="description"
+                                required><%= stickyData?.description || '' %></textarea>
+                        </div>
+
+                        <!-- Vehicle image path -->
+                        <div class="form-group">
+                            <label for="image_path">Image Path:</label>
+                            <input type="text" id="image_path" name="image_path"
+                                value="<%= stickyData?.image_path || '/images/no-image-available.png' %>" required>
+                        </div>
+
+                        <!-- Vehicle thumbnail path -->
+                        <div class="form-group">
+                            <label for="thumbnail_path">Thumbnail Path:</label>
+                            <input type="text" id="thumbnail_path" name="thumbnail_path"
+                                value="<%= stickyData?.thumbnail_path || '/images/no-image-available-thumbnail.png' %>"
+                                required>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn">Add Vehicle</button>
+                    </form>
+</div>
+
+<script>
+    // Client-side validation
+    document.getElementById('add-vehicle-form').addEventListener('submit', function (event) {
+        const form = event.target;
+        const requiredFields = ['classification_id', 'make', 'model', 'year', 'price', 'miles', 'color', 'description', 'image_path', 'thumbnail_path'];
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            const input = form[field];
+            if (!input.value.trim()) {
+                isValid = false;
+                alert(`Please fill out the ${field.replace('_', ' ')} field.`);
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
