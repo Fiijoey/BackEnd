@@ -24,6 +24,7 @@ async function getInventoryByClassificationId(classification_id) {
     return data.rows;
   } catch (error) {
     console.error("getclassificationsbyid error " + error);
+    throw error;
   }
 }
 
@@ -72,7 +73,7 @@ async function insertInventory(inventoryData) {
         inv_price,
         inv_miles,
         inv_color,
-        classification_id,
+        classification_id
        
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)

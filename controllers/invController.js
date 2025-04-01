@@ -7,8 +7,25 @@ const invCont = {};
  *  Build inventory by classification view
  * ************************** */
 invCont.buildByClassificationId = async function (req, res, next) {
-  const classification_id = req.params.classificationId;
+  // Extract and validate classificationId
+  const classificationIdParam = req.params.classificationId;
+  const classification_id = parseInt(classificationIdParam, 10);
+  if (isNaN(classification_id)) {
+    return next(new Error("Invalid classification id provided."));
+  }
+
+  // Fetch inventory items using the validated number
   const data = await invModel.getInventoryByClassificationId(classification_id);
+
+  if (!data || data.length === 0) {
+    // Handle the case where no inventory is found
+    return res.render("./inventory/classification", {
+      title: "No Vehicles Found",
+      nav: await utilities.getNav(),
+      grid: '<p class="notice">Sorry, no matching vehicles could be found.</p>',
+    });
+  }
+
   const grid = await utilities.buildClassificationGrid(data);
   let nav = await utilities.getNav();
   const className = data[0].classification_name;
@@ -150,15 +167,15 @@ invCont.buildAddInventory = async function (req, res, next) {
 invCont.addInventory = async function (req, res, next) {
   try {
     const {
-      make,
-      model,
-      year,
-      description,
-      image_path,
-      thumbnail_path,
-      price,
-      miles,
-      color,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
       classification_id,
     } = req.body;
 
@@ -168,15 +185,15 @@ invCont.addInventory = async function (req, res, next) {
     }
 
     const inventoryData = {
-      inv_make: make,
-      inv_model: model,
-      inv_year: year,
-      inv_description: description,
-      inv_image: image_path,
-      inv_thumbnail: thumbnail_path,
-      inv_price: Math.round(parseFloat(price)),
-      inv_miles: parseInt(miles, 10),
-      inv_color: color,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price: Math.round(parseFloat(inv_price)),
+      inv_miles: parseInt(inv_miles, 10),
+      inv_color,
       classification_id: parseInt(classification_id, 10),
     };
 

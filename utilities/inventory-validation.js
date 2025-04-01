@@ -53,9 +53,13 @@ validate.inventoryRules = () => {
       .notEmpty()
       .withMessage("Classification is required")
       .isNumeric(),
-    body("make").trim().escape().notEmpty().withMessage("Make is required"),
-    body("model").trim().escape().notEmpty().withMessage("Model is required"),
-    body("year")
+    body("inv_make").trim().escape().notEmpty().withMessage("Make is required"),
+    body("inv_model")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Model is required"),
+    body("inv_year")
       .trim()
       .escape()
       .notEmpty()
@@ -72,36 +76,40 @@ validate.inventoryRules = () => {
         }
         return true;
       }),
-    body("description")
+    body("inv_description")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Description is required"),
-    body("image_path")
+    body("inv_image")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Image path is required"),
-    body("thumbnail_path")
+    body("inv_thumbnail")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Thumbnail path is required"),
-    body("price")
+    body("inv_price")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Price is required")
       .isNumeric()
       .withMessage("Price must be a number"),
-    body("miles")
+    body("inv_miles")
       .trim()
       .escape()
       .notEmpty()
       .withMessage("Miles is required")
       .isNumeric()
       .withMessage("Miles must be a number"),
-    body("color").trim().escape().notEmpty().withMessage("Color is required"),
+    body("inv_color")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Color is required"),
   ];
 };
 
