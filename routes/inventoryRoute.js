@@ -31,4 +31,11 @@ router.post(
   invController.addInventory
 );
 
+//Get inventory for AJAC Route
+router.get(
+  "/getInventory/:classification_id",
+  utilities.checkAccountType,
+  utilities.handleError(invController.getInventoryJSON)
+);
+
 module.exports = router;

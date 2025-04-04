@@ -85,9 +85,12 @@ invCont.getVehicleDetail = async function (req, res, next) {
 invCont.buildInvManagement = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
+    const classificationSelect = await utilities.buildClassificationList();
     res.render("./inventory/management.ejs", {
       title: "Inventory Management",
       nav,
+      errors: null,
+      classificationSelect,
     });
   } catch (error) {
     next(error);
@@ -229,6 +232,19 @@ invCont.addInventory = async function (req, res, next) {
       errors: [{ msg: error.message }],
       stickyData: req.body,
     });
+  }
+};
+
+//Return Inventory by Classification as JSON
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id);
+  const invData = await invModel.getInventoryByClassificationId(
+    classification_id
+  );
+  if (invData[0].inv_id) {
+    return res.json(invData);
+  } else {
+    next(new Error("No data returned"));
   }
 };
 
