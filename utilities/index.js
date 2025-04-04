@@ -126,14 +126,14 @@ Util.buildClassificationList = async function (
 //Checking Cookies and Token
 
 Util.checkJWTToken = (req, res, next) => {
-  if ((req.cookies, jwt)) {
+  if (req.cookies && req.cookies.jwt) {
     jwt.verify(
       req.cookies.jwt,
       process.env.ACCESS_TOKEN_SECRET,
       function (err, accountData) {
         if (err) {
           req.flash("notice", "Please log in");
-          res.clearCookie(jwt);
+          res.clearCookie("jwt");
           return res.redirect("/account/login");
         }
         res.locals.accountData = accountData;

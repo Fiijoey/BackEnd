@@ -28,25 +28,6 @@ async function buildRegister(req, res, next) {
   });
 }
 
-async function processLogin(req, res, next) {
-  try {
-    const { email, password } = req.body;
-    // For demonstration purposes, validate against static credentials
-    if (email === "test@example.com" && password === "password123") {
-      // Set the logged-in user in session
-      req.session.user = { email };
-      // Redirect to home page or dashboard
-      res.redirect("/");
-    } else {
-      // Flash error message and redirect back to login
-      req.flash("error", "Invalid email or password");
-      res.redirect("/account/login");
-    }
-  } catch (error) {
-    next(error);
-  }
-}
-
 /* **************************************** *
  *  Process Registration
  * *************************************** */
@@ -100,7 +81,7 @@ async function registerAccount(req, res) {
 async function accountLogin(req, res) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
-  const accountData = await accountModel.registerAccountByEmail(account_email);
+  const accountData = await accountModel.getAccountByEmail(account_email);
   if (!accountData) {
     req.flash("notice", "Please chech your credentials and try again.");
     res.status(400).render("account/login", {
@@ -129,7 +110,6 @@ async function accountLogin(req, res) {
 
 module.exports = {
   buildLogin,
-  processLogin,
   buildRegister,
   registerAccount,
   accountLogin,

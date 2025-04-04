@@ -7,7 +7,7 @@ const regValidator = require("../utilities/account-validation");
 
 //Delievering the routes
 router.get("/login", utilities.handleError(accountController.buildLogin));
-router.post("/login", utilities.handleError(accountController.processLogin));
+router.post("/login", utilities.handleError(accountController.accountLogin));
 router.get("/register", utilities.handleError(accountController.buildRegister));
 router.post(
   "/register",

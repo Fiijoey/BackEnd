@@ -28,6 +28,7 @@ app.use(
     store: new (require("connect-pg-simple")(session))({
       createTableIfMissing: true,
       pool,
+      ttl: 86400, // Set session TTL to 24 hours (in seconds)
     }),
     secret: process.env.SESSION_SECRET,
     resave: true,
