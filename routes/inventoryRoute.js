@@ -38,4 +38,19 @@ router.get(
   utilities.handleError(invController.getInventoryJSON)
 );
 
+// Route to render Edit Inventory view
+// This route matches '/inv/edit/:inv_id', where :inv_id is the inventory ID of the selected vehicle. It presents a view that allows editing the item's details.
+router.get(
+  "/edit/:inv_id",
+  utilities.handleError(invController.editInventoryView)
+);
+
+// Route to handle inventory update submission
+router.post(
+  "/edit",
+  inventoryValidation.inventoryRules(),
+  inventoryValidation.checkInventoryData,
+  utilities.handleError(invController.updateInventory)
+);
+
 module.exports = router;
