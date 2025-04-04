@@ -23,5 +23,18 @@ async function registerAccount(
   }
 }
 
-const accountModel = { registerAccount };
+//Returning account data using email.
+async function getAccountByEmail(account_email) {
+  try {
+    const result = await pool.query(
+      "SELECT account_id, account_firstname, account_lastname, account_email FROM account WHERE account_email = $1",
+      [account_email]
+    );
+    return result.rows[0];
+  } catch (error) {
+    return new Error("No matching account found.");
+  }
+}
+
+const accountModel = { registerAccount, getAccountByEmail };
 module.exports = accountModel;
