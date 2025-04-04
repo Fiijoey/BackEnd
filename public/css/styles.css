@@ -355,38 +355,67 @@ main h1 {
 /* Responsive Registration styles */
 .register-container {
   max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 40px auto;
+  /* increased top and bottom margin for better spacing */
+  padding: 30px;
+  /* increased padding for a cleaner layout */
+  background-color: #fff;
+  /* ensures a clean background */
+  border-radius: 8px;
+  /* soft rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* subtle shadow for elevation */
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .form-group label {
   font-weight: bold;
   display: block;
   margin-bottom: 0.5rem;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 8px;
+  padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.3s;
 }
 
-/* Optional: Enhance error message styling to be consistent */
-.error-messages {
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #4466ee;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(68, 102, 238, 0.1);
+}
+
+/* Error message styling for consistency */
+.error-messages,
+.register-container ul.error {
   background-color: #ffebee;
   border: 1px solid #ef9a9a;
   color: #c62828;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 15px;
+  margin-bottom: 20px;
   border-radius: 4px;
+  list-style-type: none;
+}
+
+.register-container ul.error li {
+  margin-bottom: 5px;
+}
+
+.register-container ul.error li:last-child {
+  margin-bottom: 0;
 }
 
 .password-container {
@@ -396,21 +425,42 @@ main h1 {
 
 .toggle-password {
   margin-left: 10px;
-  padding: 5px 10px;
+  padding: 8px 12px;
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.toggle-password:hover {
+  background-color: #e0e0e0;
 }
 
 .password-requirements {
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 0.9em;
   color: #666;
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 3px solid #4466ee;
+}
+
+.password-requirements p {
+  font-size: 0.95em;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .password-requirements ul {
   padding-left: 20px;
+  margin: 0;
+}
+
+.password-requirements li {
+  margin-bottom: 4px;
 }
 
 .flash-message {
@@ -426,18 +476,38 @@ main h1 {
   border: 1px solid #ef9a9a;
 }
 
-button[type="submit"] {
-  padding: 10px 15px;
-  background-color: #4caf50;
+.register-container button[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  background-color: #4466ee;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-button[type="submit"]:hover {
-  background-color: #45a049;
+.register-container button[type="submit"]:hover {
+  background-color: #3355cc;
+  transform: translateY(-2px);
+}
+
+.register-container p {
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 1.5rem;
+}
+
+.register-container p a {
+  color: #4466ee;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-container p a:hover {
+  text-decoration: underline;
 }
 
 /* --- Added new styles for professional view containers and form elements --- */
@@ -448,6 +518,14 @@ button[type="submit"]:hover {
   padding: 1rem;
   margin: 0 1rem;
   max-width: 100%;
+}
+
+/* Registration page heading style */
+.register-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
 }
 
 .btn {
@@ -554,6 +632,108 @@ button[type="submit"]:hover {
   background-color: #e1e1e1;
 }
 
+/* Account Management Page Styles */
+.account-home-container {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.account-home-container h1 {
+  margin-bottom: 1rem;
+}
+
+.account-home-container p {
+  margin-bottom: 1.5rem;
+}
+
+.account-home-container a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4466ee;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.account-home-container a:hover {
+  background-color: #3355cc;
+}
+
+/* Center content in manage-container */
+.manage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* --- Enhanced styling for classification dropdown --- */
+#classification_id {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%234466ee" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9l-7 7-7-7"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#classification_id:focus {
+  border-color: #4466ee;
+  box-shadow: 0 0 0 3px rgba(68, 102, 238, 0.2);
+  outline: none;
+}
+
+/* --- Enhanced styling for inventory table --- */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-family: Arial, sans-serif;
+  font-size: 1rem;
+}
+
+#inventoryDisplay thead {
+  background-color: #4466ee;
+  color: #fff;
+  text-align: left;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+#inventoryDisplay tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#inventoryDisplay tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+#inventoryDisplay a {
+  color: #4466ee;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#inventoryDisplay a:hover {
+  text-decoration: underline;
+}
 
 @media (min-width: 780px) {
   body {
@@ -635,7 +815,7 @@ button[type="submit"]:hover {
 
   /* Responsive adjustments for error page */
   .error-container {
-    margin: 1rem;
+    margin: 1rem auto;
     padding: 1.5rem;
   }
 
@@ -652,44 +832,4 @@ button[type="submit"]:hover {
     font-size: 1rem;
   }
 
-}
-
-/* Account Management Page Styles */
-.account-home-container {
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.account-home-container h1 {
-  margin-bottom: 1rem;
-}
-
-.account-home-container p {
-  margin-bottom: 1.5rem;
-}
-
-.account-home-container a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4466ee;
-  color: #fff;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.account-home-container a:hover {
-  background-color: #3355cc;
-}
-
-/* Center content in manage-container */
-.manage-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
 }

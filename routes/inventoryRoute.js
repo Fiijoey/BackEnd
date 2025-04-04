@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
 const inventoryValidation = require("../utilities/inventory-validation");
+const utilities = require("../utilities");
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
@@ -34,7 +35,6 @@ router.post(
 //Get inventory for AJAC Route
 router.get(
   "/getInventory/:classification_id",
-  utilities.checkAccountType,
   utilities.handleError(invController.getInventoryJSON)
 );
 
