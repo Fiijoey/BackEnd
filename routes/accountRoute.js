@@ -7,7 +7,11 @@ const regValidator = require("../utilities/account-validation");
 const { body, validationResult } = require("express-validator");
 
 //Delievering the routes
-router.get("/", utilities.handleError(accountController.buildAccountHome));
+router.get(
+  "/",
+  utilities.checkLogin,
+  utilities.handleError(accountController.buildAccountHome)
+);
 router.get("/login", utilities.handleError(accountController.buildLogin));
 router.post(
   "/login",

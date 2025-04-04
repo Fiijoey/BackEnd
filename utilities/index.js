@@ -146,4 +146,14 @@ Util.checkJWTToken = (req, res, next) => {
   }
 };
 
+//Checking which user is logged in
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in to access this page.");
+    res.redirect("/account/login");
+  }
+};
+
 module.exports = Util;
