@@ -653,3 +653,43 @@ button[type="submit"]:hover {
   }
 
 }
+
+/* Account Management Page Styles */
+.account-home-container {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.account-home-container h1 {
+  margin-bottom: 1rem;
+}
+
+.account-home-container p {
+  margin-bottom: 1.5rem;
+}
+
+.account-home-container a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4466ee;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.account-home-container a:hover {
+  background-color: #3355cc;
+}
+
+/* Center content in manage-container */
+.manage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
