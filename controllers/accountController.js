@@ -108,9 +108,19 @@ async function accountLogin(req, res) {
   }
 }
 
+async function buildAccountHome(req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("account/accountMangement", {
+    title: "Account Management",
+    nav,
+    message: "You're logged in",
+  });
+}
+
 module.exports = {
   buildLogin,
   buildRegister,
   registerAccount,
   accountLogin,
+  buildAccountHome,
 };

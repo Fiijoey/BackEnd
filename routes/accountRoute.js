@@ -16,4 +16,6 @@ router.post(
   utilities.handleError(accountController.registerAccount)
 );
 
+router.get("/", utilities.handleError(accountController.buildAccountHome));
+
 module.exports = router;

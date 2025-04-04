@@ -27,7 +27,7 @@ async function registerAccount(
 async function getAccountByEmail(account_email) {
   try {
     const result = await pool.query(
-      "SELECT account_id, account_firstname, account_lastname, account_email FROM account WHERE account_email = $1",
+      "SELECT account_id, account_firstname, account_lastname, account_email, account_password FROM account WHERE account_email = $1",
       [account_email]
     );
     return result.rows[0];

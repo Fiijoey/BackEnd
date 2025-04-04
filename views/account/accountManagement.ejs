@@ -1,0 +1,23 @@
+<%- include('../partials/header') %>
+  <%- messages() %>
+
+    <% if (errors) { %>
+      <ul class="error">
+        <% errors.forEach(error=> { %>
+          <li>
+            <%= error.msg %>
+          </li>
+          <% }) %>
+      </ul>
+      <% } %>
+
+        <div class="account-home-container">
+          <h1>
+            <%= title %>
+          </h1>
+          <p>You're logged in</p>
+          <p>Welcome to your account management page. From here, you can navigate to other parts of the application.</p>
+          <a href="#">Edit Account Information</a>
+        </div>
+
+        <%- include('../partials/footer') %>
