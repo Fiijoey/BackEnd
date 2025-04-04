@@ -32,7 +32,7 @@ async function getAccountByEmail(account_email) {
     );
     return result.rows[0];
   } catch (error) {
-    return new Error("No matching account found.");
+    throw new Error("No matching account found.");
   }
 }
 

@@ -42,7 +42,8 @@ async function registerAccount(req, res) {
 
   let hashedPassword;
   try {
-    hashedPassword = await bcrypt.hashSync(account_password, 10);
+    // Using asynchronous bcrypt.hash instead of synchronous hashSync for better performance
+    hashedPassword = await bcrypt.hash(account_password, 10);
   } catch (error) {
     console.error("Error hashing password:", error);
     req.flash("notice", "Sorry, the registration failed.");
@@ -57,7 +58,7 @@ async function registerAccount(req, res) {
     account_firstname,
     account_lastname,
     account_email,
-    account_password
+    hashedPassword
   );
 
   if (regResult) {
@@ -78,12 +79,12 @@ async function registerAccount(req, res) {
   }
 }
 
-async function accountLogin(req, res) {
+async function accountLogin(req, res, next) {
   let nav = await utilities.getNav();
   const { account_email, account_password } = req.body;
   const accountData = await accountModel.getAccountByEmail(account_email);
   if (!accountData) {
-    req.flash("notice", "Please chech your credentials and try again.");
+    req.flash("notice", "Please check your credentials and try again.");
     res.status(400).render("account/login", {
       title: "Login",
       nav,
@@ -100,7 +101,7 @@ async function accountLogin(req, res) {
         process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: 3600 * 1000 }
       );
-      res.cookie("jwt", accessToken, { httponly: true, maxAge: 3600 * 1000 });
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
       return res.redirect("/account/");
     } else {
       req.flash(
@@ -125,6 +126,7 @@ async function buildAccountHome(req, res, next) {
     title: "Account Management",
     nav,
     message: "You're logged in",
+    errors: null,
   });
 }
 
