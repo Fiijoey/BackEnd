@@ -144,6 +144,26 @@ async function updateInventory(inventoryData) {
   }
 }
 
+/* ***************************
+ *  Delete inventory item
+ *  This function deletes an inventory record from the database
+ *  using the provided inventory ID (inv_id).
+ *
+ *  @param {number} inv_id - The ID of the inventory record to delete.
+ *  @returns {object} - The deleted inventory id as confirmation.
+ * ************************** */
+async function deleteInventory(inv_id) {
+  try {
+    // SQL command to delete the inventory record and return the deleted inv_id for verification
+    const sql = "DELETE FROM inventory WHERE inv_id = $1 RETURNING inv_id";
+    const result = await pool.query(sql, [inv_id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("deleteInventory error:", error);
+    throw error;
+  }
+}
+
 // Group all functions into an object for export
 const invModel = {
   getClassifications,
@@ -152,6 +172,7 @@ const invModel = {
   insertClassification,
   insertInventory,
   updateInventory,
+  deleteInventory, // Newly added deleteInventory function
 };
 
 module.exports = invModel;

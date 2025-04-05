@@ -359,4 +359,83 @@ invCont.updateInventory = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Render Delete Inventory View
+ *  This function renders the delete confirmation page for a vehicle using its inv_id.
+ *  It fetches the vehicle details and builds the navigation before rendering the view.
+ * *************************** */
+invCont.deleteInventoryView = async function (req, res, next) {
+  try {
+    // Extract and validate the inventory ID from the URL parameters
+    const inv_id = parseInt(req.params.inv_id, 10);
+    if (isNaN(inv_id)) {
+      return next(new Error("Invalid inventory id provided."));
+    }
+
+    // Retrieve vehicle details for confirmation
+    const vehicleData = await invModel.getVehicleById(inv_id);
+    if (!vehicleData) {
+      return res.status(404).render("./errors/error", {
+        title: "Vehicle Not Found",
+        message: "No vehicle found for deletion.",
+        nav: await utilities.getNav(),
+      });
+    }
+
+    // Build navigation
+    const nav = await utilities.getNav();
+
+    // Render the delete confirmation view with read-only details
+    res.render("./inventory/delete-inventory", {
+      title: `Delete ${vehicleData.inv_make} ${vehicleData.inv_model}`,
+      nav,
+      errors: null,
+      stickyData: vehicleData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/* ***************************
+ *  Delete Inventory Item
+ *  This function processes the deletion of a vehicle record after confirmation.
+ *  It validates the inventory ID from the request body, calls the model's deleteInventory function,
+ *  and handles success and error responses accordingly.
+ * *************************** */
+invCont.deleteInventory = async function (req, res, next) {
+  try {
+    // Parse and validate the inventory ID from the request body
+    const inv_id = parseInt(req.body.inv_id, 10);
+    if (isNaN(inv_id)) {
+      req.flash("error", "Invalid inventory id provided.");
+      return res.redirect("/inv");
+    }
+
+    // Attempt to delete the vehicle from the database
+    const deleteResult = await invModel.deleteInventory(inv_id);
+
+    if (deleteResult) {
+      // Successful deletion; flash a success message and redirect to inventory management
+      req.flash("success", "Vehicle deleted successfully.");
+      return res.redirect("/inv");
+    } else {
+      // If deletion did not occur, flash an error and re-render the delete view
+      req.flash("error", "Failed to delete vehicle. Please try again.");
+      const nav = await utilities.getNav();
+      const vehicleData = await invModel.getVehicleById(inv_id);
+      return res.status(500).render("./inventory/delete-inventory", {
+        title: `Delete ${vehicleData?.inv_make || ""} ${
+          vehicleData?.inv_model || ""
+        }`,
+        nav,
+        errors: [{ msg: "Vehicle could not be deleted." }],
+        stickyData: vehicleData,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = invCont;

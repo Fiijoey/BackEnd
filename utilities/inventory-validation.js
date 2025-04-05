@@ -136,4 +136,33 @@ validate.checkInventoryData = async (req, res, next) => {
   }
 };
 
+// Delete Inventory Validation Rules
+validate.deleteInventoryRules = () => {
+  return [
+    body("inv_id")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Inventory id is required")
+      .isNumeric()
+      .withMessage("Inventory id must be a number"),
+  ];
+};
+
+// Check validation results for deletion data
+validate.checkDeleteData = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await require("./index").getNav();
+    res.render("inventory/delete-inventory", {
+      title: "Delete Vehicle",
+      nav,
+      errors: errors.array(),
+      stickyData: req.body,
+    });
+  } else {
+    next();
+  }
+};
+
 module.exports = validate;

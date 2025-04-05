@@ -57,11 +57,11 @@ router.get(
   utilities.handleError(invController.deleteInventoryView)
 );
 
-// Route to handle inventory update submission
+// Route to handle inventory deletion
 router.post(
   "/delete",
-  inventoryValidation.inventoryRules(),
-  inventoryValidation.checkInventoryData,
+  inventoryValidation.deleteInventoryRules(),
+  inventoryValidation.checkDeleteData,
   utilities.handleError(invController.deleteInventory)
 );
 module.exports = router;

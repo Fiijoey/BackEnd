@@ -36,9 +36,9 @@ function buildInventoryList(data) {
   data.forEach(function (element) {
     console.log(element.inv_id + "", "" + element.inv_model);
     dataTable += `<tr><td>${element.inv_make} ${element.inv_model}</td>`;
-    dataTable += `<td><a href = "/inv/edit/${element.inv_id}" title = "Click to update">
+    dataTable += `<td><a href = "/inv/edit/${element.inv_id}" title = "Click to Update">
         Modify</a></td>`;
-    dataTable += `<td><a href = "/inv/edit/${element.inv_id}" title = "Click to delete">
+    dataTable += `<td><a href = "/inv/delete/${element.inv_id}" title = "Click to Delete">
         Delete</a></td></tr>`;
   });
   dataTable += "</tbody>";
