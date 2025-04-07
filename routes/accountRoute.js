@@ -4,6 +4,11 @@ const router = express.Router();
 const accountController = require("../controllers/accountController");
 const utilities = require("../utilities");
 const regValidator = require("../utilities/account-validation");
+const {
+  updateAccountRules,
+  updatePasswordRules,
+  checkUpdateValidation,
+} = require("../utilities/account-update-validation");
 const { body, validationResult } = require("express-validator");
 
 //Delievering the routes
@@ -56,6 +61,33 @@ router.post(
   regValidator.registrationRules(),
   regValidator.checkRegData,
   utilities.handleError(accountController.registerAccount)
+);
+
+router.get("/logout", utilities.handleError(accountController.logout));
+
+// Account update routes
+router.get(
+  "/edit/:id",
+  utilities.checkLogin,
+  utilities.handleError(accountController.buildAccountUpdate)
+);
+
+// Process account update form
+router.post(
+  "/update",
+  utilities.checkLogin,
+  updateAccountRules(),
+  checkUpdateValidation,
+  utilities.handleError(accountController.updateAccount)
+);
+
+// Process password change form
+router.post(
+  "/update-password",
+  utilities.checkLogin,
+  updatePasswordRules(),
+  checkUpdateValidation,
+  utilities.handleError(accountController.updateAccountPassword)
 );
 
 module.exports = router;

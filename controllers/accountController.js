@@ -127,7 +127,151 @@ async function buildAccountHome(req, res, next) {
     nav,
     message: "You're logged in",
     errors: null,
+    accountData: res.locals.accountData,
   });
+}
+
+/* **************************************** *
+ * Deliver account update view
+ * *************************************** */
+async function buildAccountUpdate(req, res, next) {
+  let nav = await utilities.getNav();
+  res.render("account/update", {
+    title: "Update Account",
+    nav,
+    errors: null,
+    accountData: res.locals.accountData,
+  });
+}
+
+/* **************************************** *
+ * Process account update
+ * *************************************** */
+async function updateAccount(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_firstname, account_lastname, account_email } = req.body;
+  const account_id = res.locals.accountData.account_id;
+
+  // If there are validation errors from middleware, they will be in req.errors
+  if (req.errors) {
+    return res.status(400).render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: req.errors,
+      accountData: res.locals.accountData,
+    });
+  }
+
+  try {
+    const updateResult = await accountModel.updateAccount(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    );
+
+    if (updateResult) {
+      // Update the JWT with the new data
+      const updatedAccount = await accountModel.getAccountById(account_id);
+      if (!updatedAccount) {
+        throw new Error("Failed to retrieve updated account information");
+      }
+
+      delete updatedAccount.account_password;
+      const accessToken = jwt.sign(
+        updatedAccount,
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: 3600 * 1000 }
+      );
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+
+      req.flash("notice", "Account updated successfully.");
+      return res.redirect("/account/");
+    } else {
+      req.flash("notice", "Sorry, the update failed.");
+      res.status(501).render("account/update", {
+        title: "Update Account",
+        nav,
+        errors: null,
+        accountData: res.locals.accountData,
+      });
+    }
+  } catch (error) {
+    console.error("Error updating account:", error);
+    req.flash("notice", "An error occurred during the update process.");
+    res.status(500).render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      accountData: res.locals.accountData,
+    });
+  }
+}
+
+/* **************************************** *
+ * Process password change
+ * *************************************** */
+async function updateAccountPassword(req, res, next) {
+  let nav = await utilities.getNav();
+  const { account_password, account_password_confirm } = req.body;
+  const account_id = res.locals.accountData.account_id;
+
+  // If there are validation errors from middleware, they will be in req.errors
+  if (req.errors) {
+    return res.status(400).render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: req.errors,
+      accountData: res.locals.accountData,
+    });
+  }
+
+  // Check if passwords match
+  if (account_password !== account_password_confirm) {
+    req.flash("notice", "Passwords do not match.");
+    return res.status(400).render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      accountData: res.locals.accountData,
+    });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(account_password, 10);
+    const updateResult = await accountModel.updatePassword(
+      account_id,
+      hashedPassword
+    );
+
+    if (updateResult) {
+      req.flash("notice", "Password updated successfully.");
+      return res.redirect("/account/");
+    } else {
+      req.flash("notice", "Sorry, the password update failed.");
+      res.status(501).render("account/update", {
+        title: "Update Account",
+        nav,
+        errors: null,
+        accountData: res.locals.accountData,
+      });
+    }
+  } catch (error) {
+    console.error("Error updating password:", error);
+    req.flash("notice", "Sorry, the password update failed.");
+    return res.status(500).render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      accountData: res.locals.accountData,
+    });
+  }
+}
+
+async function logout(req, res, next) {
+  res.clearCookie("jwt");
+  req.flash("notice", "You have been logged out.");
+  res.redirect("/");
 }
 
 module.exports = {
@@ -136,4 +280,8 @@ module.exports = {
   registerAccount,
   accountLogin,
   buildAccountHome,
+  buildAccountUpdate,
+  updateAccount,
+  updateAccountPassword,
+  logout,
 };
