@@ -5,7 +5,8 @@
   <div id="tools">
     <% if (loggedin) { %>
       <a href="/account/logout" title="Log out" class="header-tool"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      <a href="/account/" title="Account Management" class="header-tool"><i class="fas fa-user"></i> Welcome Basic</a>
+      <a href="/account/" title="Account Management" class="header-tool"><i class="fas fa-user"></i> Welcome <%=
+          accountData.account_firstname %> </a>
       <% } else { %>
         <a href="/account/login" title="Click to log in" class="header-tool"><i class="fas fa-user"></i> My Account</a>
         <% } %>

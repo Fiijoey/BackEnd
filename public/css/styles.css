@@ -364,7 +364,6 @@ main h1 {
   border-radius: 8px;
   /* soft rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* subtle shadow for elevation */
 }
 
 .form-group {
@@ -511,127 +510,193 @@ main h1 {
 }
 
 /* --- Added new styles for professional view containers and form elements --- */
-.view-container {
-  background-color: #fff;
+.account-update-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  margin: 0 1rem;
-  max-width: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Registration page heading style */
-.register-container h1 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.account-update-container fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-update-container legend {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
   color: #333;
 }
 
-.btn {
+.account-update-container .form-group {
+  margin-bottom: 1rem;
+}
+
+.account-update-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.account-update-container input[type="text"],
+.account-update-container input[type="email"],
+.account-update-container input[type="password"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.account-update-container button.btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #4466ee;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.account-update-container button.btn:hover {
+  background-color: #3355cc;
+}
+
+/* For Header Tools */
+#tools a.header-tool {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #4466ee;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+#tools a.header-tool:hover {
+  background-color: #3355cc;
+}
+
+#tools a.header-tool i {
+  margin-right: 0.5rem;
+}
+
+
+/* --- Professional Inventory Management Styles --- */
+
+/* Style for the main container in inventory related pages */
+.view-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional padding for the management container */
+.manage-container {
+  padding: 1rem;
+}
+
+/* Styling for the management links section containing the buttons */
+.management-links {
+  margin-bottom: 1.5rem;
+}
+
+/* Style for buttons inside management links */
+.management-links a.btn {
   display: inline-block;
-  padding: 10px 20px;
-  margin: 10px;
+  padding: 0.75rem 1.5rem;
   background-color: #4466ee;
   color: #fff;
   border: none;
   border-radius: 4px;
   text-decoration: none;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
-  text-align: center;
+  transition: background-color 0.3s;
+  margin-right: 0.5rem;
 }
 
-.btn:hover {
+.management-links a.btn:hover {
   background-color: #3355cc;
 }
 
-/* Flash Message Styles */
-#messages ul.error {
-  background-color: #ffebee;
-  /* Light red background */
-  color: #c62828;
-  /* Reddish text color */
-  border: 1px solid #ef9a9a;
-  padding: 10px;
-  margin-bottom: 15px;
-  list-style-type: none;
+/* Professional styling for the inventory display table in management view */
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
 }
 
-#messages ul.notice {
-  background-color: #e8f5e9;
-  /* Light green background */
-  color: #2e7d32;
-  /* Green text color */
-  border: 1px solid #c8e6c9;
-  padding: 10px;
-  margin-bottom: 15px;
-  list-style-type: none;
+#inventoryDisplay thead {
+  background-color: #f2f2f2;
 }
 
-/* Error Page Styles */
-.error-container {
-  max-width: 600px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
+#inventoryDisplay th,
+#inventoryDisplay td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
-.error-icon {
-  font-size: 4rem;
-  color: #e74c3c;
-  margin-bottom: 1rem;
+#inventoryDisplay tr:hover {
+  background-color: #f9f9f9;
 }
 
-.error-title {
-  color: #333;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+/* Adjustments for form styling within inventory pages (e.g., add-classification and add-inventory) */
+.view-container form .form-group {
+  margin-bottom: 1.25rem;
 }
 
-.error-message {
-  color: #666;
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-}
-
-.error-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.error-button {
-  display: inline-block;
+/* Generic button styling */
+button.btn,
+.btn {
+  font-family: Arial, sans-serif;
+  text-decoration: none;
   padding: 0.75rem 1.5rem;
   background-color: #4466ee;
-  color: white;
-  text-decoration: none;
+  color: #fff;
+  border: none;
   border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
   font-weight: 500;
   transition: background-color 0.3s, transform 0.2s;
 }
 
-.error-button:hover {
+button.btn:hover,
+.btn:hover {
   background-color: #3355cc;
   transform: translateY(-2px);
 }
 
-.error-button.secondary {
-  background-color: #f1f1f1;
-  color: #333;
+/* Select dropdown styling */
+select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.error-button.secondary:hover {
-  background-color: #e1e1e1;
+.form-select:focus {
+  border-color: #4466ee;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(68, 102, 238, 0.1);
 }
-
 
 @media (min-width: 780px) {
   body {
@@ -713,7 +778,7 @@ main h1 {
 
   /* Responsive adjustments for error page */
   .error-container {
-    margin: 1rem;
+    margin: 1rem auto;
     padding: 1.5rem;
   }
 
@@ -729,45 +794,4 @@ main h1 {
   .error-message {
     font-size: 1rem;
   }
-
-}
-
-/* Account Management Page Styles */
-.account-home-container {
-  padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: 1rem;
-}
-
-.account-home-container h1 {
-  margin-bottom: 1rem;
-}
-
-.account-home-container p {
-  margin-bottom: 1.5rem;
-}
-
-.account-home-container a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #4466ee;
-  color: #fff;
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.account-home-container a:hover {
-  background-color: #3355cc;
-}
-
-/* Center content in manage-container */
-.manage-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
 }
