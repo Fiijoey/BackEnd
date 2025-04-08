@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  --fa-animation-delay: 0.3s;
+}
+
 header {
   display: flex;
   align-items: center;
