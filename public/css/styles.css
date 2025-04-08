@@ -8,6 +8,11 @@
 :root {
   --fa-animation-delay: 0.3s;
 }
+:root {
+  --fa-rotate-angle: 45deg;
+}
+
+
 
 header {
   display: flex;
