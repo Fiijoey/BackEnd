@@ -6,11 +6,22 @@
 }
 
 :root {
-  --fa-animation-delay: 0.3s;
+  --fa-animation-delay: 0s;
+}
+
+/* Example fallback */
+.fa-beat, .fa-bounce, .fa-beat-fade, .fa-fade, .fa-flip, .fa-shake, .fa-spin {
+  animation-delay: 0s;
 }
 :root {
-  --fa-rotate-angle: 45deg;
+  --fa-rotate-angle: 45deg; /* or 0deg */
 }
+
+.fa-rotate-by {
+  transform: rotate(var(--fa-rotate-angle, 0deg));
+}
+
+
 
 
 
