@@ -107,7 +107,7 @@ Util.buildClassificationList = async function (
 ) {
   let data = await require("../models/inventory-model").getClassifications();
   let classificationList =
-    '<select name="classification_id" id="classification_id" required>';
+    '<select name="classification_id" id="classification_id" class="form-select" required>';
   classificationList += "<option value=''>Choose a Classification</option>";
   data.rows.forEach((row) => {
     classificationList += '<option value="' + row.classification_id + '"';
