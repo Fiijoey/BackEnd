@@ -1,5 +1,5 @@
-const pool = require('../database/index');
-const { logger } = require('../utilities/logger');
+const pool = require("../database/index");
+const { logger } = require("../utilities/logger");
 
 /**
  * Review Model - Handles database operations for vehicle reviews
@@ -19,12 +19,14 @@ async function getReviewsByVehicleId(vehicle_id) {
       WHERE r.vehicle_id = $1
       ORDER BY r.review_date DESC
     `;
-    
+
     const result = await pool.query(sql, [vehicle_id]);
-    
+
     return result.rows;
   } catch (error) {
-    logger.error(`Error retrieving reviews for vehicle ${vehicle_id}: ${error.message}`);
+    logger.error(
+      `Error retrieving reviews for vehicle ${vehicle_id}: ${error.message}`
+    );
     throw new Error(`Unable to get reviews: ${error.message}`);
   }
 }
@@ -41,25 +43,25 @@ async function getReviewsByVehicleId(vehicle_id) {
 async function insertReview(reviewData) {
   try {
     const { vehicle_id, account_id, rating, review_text } = reviewData;
-    
+
     // Validate required fields
     if (!vehicle_id || !account_id || !rating) {
-      throw new Error('Missing required review data');
+      throw new Error("Missing required review data");
     }
-    
+
     const sql = `
       INSERT INTO review (vehicle_id, account_id, rating, review_text, review_date)
       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
       RETURNING *
     `;
-    
+
     const result = await pool.query(sql, [
-      vehicle_id, 
-      account_id, 
-      rating, 
-      review_text || '' // Handle case where review_text might be null
+      vehicle_id,
+      account_id,
+      rating,
+      review_text || "", // Handle case where review_text might be null
     ]);
-    
+
     return result.rows[0];
   } catch (error) {
     logger.error(`Error inserting review: ${error.message}`);
@@ -69,5 +71,5 @@ async function insertReview(reviewData) {
 
 module.exports = {
   getReviewsByVehicleId,
-  insertReview
+  insertReview,
 };
