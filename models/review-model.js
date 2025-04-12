@@ -17,7 +17,7 @@ async function getReviewsByVehicleId(vehicle_id) {
       FROM review r
       JOIN account a ON r.account_id = a.account_id
       WHERE r.vehicle_id = $1
-      ORDER BY r.review_date DESC
+      ORDER BY r.created_at DESC
     `;
 
     const result = await pool.query(sql, [vehicle_id]);
@@ -50,7 +50,7 @@ async function insertReview(reviewData) {
     }
 
     const sql = `
-      INSERT INTO review (vehicle_id, account_id, rating, review_text, review_date)
+      INSERT INTO review (vehicle_id, account_id, rating, review_text, created_at)
       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
       RETURNING *
     `;
