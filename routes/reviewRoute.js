@@ -13,7 +13,7 @@ router.get("/reviews/:inv_id", reviewController.getVehicleReviews);
 
 // Route to submit a new review with authentication and validation
 router.post(
-  "/reviews/add", // Improved URL for clarity
+  "/add", // Changed from "/reviews/add" to "/add" to match the form action
   utilities.checkLogin, // Check if user is logged in
   reviewValidation.reviewRules(), // Apply validation rules
   reviewValidation.checkValidationResults, // Handle validation errors

@@ -21,7 +21,7 @@ async function getVehicleReviews(req, res, next) {
       return res.redirect("/inventory");
     }
 
-    const reviews = await reviewModel.getReviewsByinv_id(inv_id);
+    const reviews = await reviewModel.getReviewsByVehicleId(inv_id);
     req.reviews = reviews;
     next();
   } catch (error) {
@@ -47,7 +47,13 @@ async function addReview(req, res, next) {
     // Validate the request using express-validator
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      req.flash("notice", errors.array().map(err => err.msg).join(" "));
+      req.flash(
+        "notice",
+        errors
+          .array()
+          .map((err) => err.msg)
+          .join(" ")
+      );
       return res.redirect(`/inventory/detail/${req.body.inv_id}`);
     }
 

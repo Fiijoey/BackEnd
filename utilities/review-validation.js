@@ -42,10 +42,12 @@ const checkValidationResults = (req, res, next) => {
   if (!errors.isEmpty()) {
     console.error("Validation Errors:", errors.array()); // Log validation errors for debugging
 
-    return res.status(400).json({
-      errors: errors.array(),
-      message: "Validation failed",
-    });
+    const errorMessages = errors
+      .array()
+      .map((err) => err.msg)
+      .join(" ");
+    req.flash("notice", errorMessages);
+    return res.redirect(`/inventory/detail/${req.body.inv_id}`);
   }
 
   next();

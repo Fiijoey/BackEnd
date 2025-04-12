@@ -7,7 +7,7 @@
   <div class="reviews-list">
     <% if (reviews && reviews.length> 0) { %>
       <h3>
-        <%= reviews.length %> Review<%= reviews.length> 1 ? 's' : '' %>
+        <%= reviews.length %> Review<%= (reviews.length> 1) ? 's' : '' %>
       </h3>
 
       <% reviews.forEach(review=> { %>
