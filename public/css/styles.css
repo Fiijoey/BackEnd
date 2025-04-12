@@ -240,7 +240,7 @@ main h1 {
 }
 
 /********** Vehicle Detail styles ************/
-.detail_container {
+.vehicle-info {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -253,7 +253,7 @@ main h1 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.vehi_spec {
+.vehicle-specs {
   background-color: rgba(105, 152, 176, 0.2);
   border-radius: 10px;
   display: flex;
@@ -263,15 +263,11 @@ main h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.vehi_spec p {
+.vehicle-specs p {
   padding: 0.5rem 0;
   font-size: 1.1rem;
   margin: 0;
   border-bottom: 1px solid rgba(105, 152, 176, 0.1);
-}
-
-.vehi_spec p:last-child {
-  border-bottom: none;
 }
 
 .vehi_desc {
@@ -942,20 +938,20 @@ footer p {
   }
 
   /********** Vehicle Detail styles ************/
-  .detail_container {
+  .vehicle-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     align-items: start;
   }
 
-  .detail_container img {
+  .vehicle-info img {
     max-width: 500px;
     width: 100%;
     height: auto;
   }
 
-  .vehi_spec {
+  .vehicle-specs {
     height: fit-content;
   }
 
