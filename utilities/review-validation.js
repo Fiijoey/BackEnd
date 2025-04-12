@@ -21,7 +21,7 @@ const reviewRules = () => {
       .withMessage("Review text must be between 3 and 1000 characters"),
 
     // Validate vehicleId - must exist
-    body("vehicleId")
+    body("inv_id")
       .notEmpty()
       .withMessage("Vehicle ID is required")
       .isInt()
@@ -40,6 +40,8 @@ const checkValidationResults = (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    console.error("Validation Errors:", errors.array()); // Log validation errors for debugging
+
     return res.status(400).json({
       errors: errors.array(),
       message: "Validation failed",

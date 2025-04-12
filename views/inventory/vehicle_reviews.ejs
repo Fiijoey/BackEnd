@@ -1,6 +1,6 @@
 <div class="vehicle-reviews-container">
-  <h2>Reviews for <%= vehicle.make %>
-      <%= vehicle.model %>
+  <h2>Reviews for <%= vehicle.inv_make %>
+      <%= vehicle.inv_model %>
   </h2>
 
   <!-- Display existing reviews -->
@@ -14,7 +14,7 @@
         <div class="review-card">
           <div class="review-header">
             <div class="rating">
-              <% for(let i=1; i <=5; i++) { %>
+              <% for (let i=1; i <=5; i++) { %>
                 <span class="star <%= i <= review.rating ? 'filled' : '' %>">★</span>
                 <% } %>
                   <span class="rating-value">
@@ -46,8 +46,8 @@
   <% if (loggedin) { %>
     <div class="review-form-container">
       <h3>Write a Review</h3>
-      <form id="reviewForm" action="/reviews" method="POST">
-        <input type="hidden" name="vehicleId" value="<%= vehicle.inv_id %>">
+      <form id="reviewForm" action="/reviews/add" method="POST">
+        <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
 
         <div class="form-group">
           <label for="rating">Rating:</label>
@@ -63,7 +63,7 @@
 
         <div class="form-group">
           <label for="review_text">Your Review:</label>
-          <textarea id="review_text" name="review_text" rows="5" required></textarea>
+          <textarea id="review_text" name="reviewText" rows="5" required></textarea>
           <div class="char-count"><span id="charCount">0</span>/1000 characters</div>
         </div>
 
@@ -83,14 +83,6 @@
           const count = this.value.length;
           charCount.textContent = count;
 
-          // Optional: Add visual feedback if approaching limit
-          if (count > 900) {
-            charCount.classList.add('near-limit');
-          } else {
-            charCount.classList.remove('near-limit');
-          }
-
-          // Prevent typing beyond 1000 characters
           if (count > 1000) {
             this.value = this.value.substring(0, 1000);
             charCount.textContent = 1000;
@@ -101,34 +93,27 @@
         form.addEventListener('submit', function (event) {
           const rating = document.getElementById('rating').value;
           const reviewContent = reviewText.value.trim();
-
           let isValid = true;
 
-          // Clear previous error messages
           document.querySelectorAll('.error-message').forEach(el => el.remove());
 
           // Validate rating
           if (!rating) {
             isValid = false;
-            const ratingField = document.getElementById('rating');
             const errorMsg = document.createElement('div');
             errorMsg.className = 'error-message';
             errorMsg.textContent = 'Please select a rating';
-            ratingField.parentNode.appendChild(errorMsg);
+            form.rating.parentNode.appendChild(errorMsg);
           }
 
           // Validate review text
-          if (!reviewContent) {
+          if (!reviewContent || reviewContent.length < 10) {
             isValid = false;
             const errorMsg = document.createElement('div');
             errorMsg.className = 'error-message';
-            errorMsg.textContent = 'Please enter your review';
-            reviewText.parentNode.appendChild(errorMsg);
-          } else if (reviewContent.length < 10) {
-            isValid = false;
-            const errorMsg = document.createElement('div');
-            errorMsg.className = 'error-message';
-            errorMsg.textContent = 'Review must be at least 10 characters long';
+            errorMsg.textContent = reviewContent.length < 10
+              ? 'Review must be at least 10 characters long'
+              : 'Please enter your review';
             reviewText.parentNode.appendChild(errorMsg);
           }
 
