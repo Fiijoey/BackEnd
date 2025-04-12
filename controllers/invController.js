@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model");
+const reviewModel = require("../models/review-model");
 const utilities = require("../utilities/");
 
 const invCont = {};
@@ -43,6 +44,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
   try {
     const vehicleId = req.params.id;
     const vehicleData = await invModel.getVehicleById(vehicleId);
+    const reviews = await reviewModel.getReviewsByVehicleId(vehicleId);
 
     if (!vehicleData) {
       return res.status(404).render("./error", {
@@ -76,6 +78,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
         image: vehicleData.inv_image,
         color: vehicleData.inv_color,
       },
+      reviews: reviews,
     });
   } catch (error) {
     next(error);

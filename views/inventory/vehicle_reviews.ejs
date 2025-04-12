@@ -1,44 +1,54 @@
-<%- include('../partials/header.ejs') %>
-
 <div class="vehicle-reviews-container">
-  <h2>Reviews for <%= vehicle.make %> <%= vehicle.model %></h2>
-  
+  <h2>Reviews for <%= vehicle.make %>
+      <%= vehicle.model %>
+  </h2>
+
   <!-- Display existing reviews -->
   <div class="reviews-list">
-    <% if (reviews && reviews.length > 0) { %>
-      <h3><%= reviews.length %> Review<%= reviews.length > 1 ? 's' : '' %></h3>
-      
-      <% reviews.forEach(review => { %>
+    <% if (reviews && reviews.length> 0) { %>
+      <h3>
+        <%= reviews.length %> Review<%= reviews.length> 1 ? 's' : '' %>
+      </h3>
+
+      <% reviews.forEach(review=> { %>
         <div class="review-card">
           <div class="review-header">
             <div class="rating">
-              <% for(let i = 1; i <= 5; i++) { %>
+              <% for(let i=1; i <=5; i++) { %>
                 <span class="star <%= i <= review.rating ? 'filled' : '' %>">★</span>
-              <% } %>
-              <span class="rating-value"><%= review.rating %>/5</span>
+                <% } %>
+                  <span class="rating-value">
+                    <%= review.rating %>/5
+                  </span>
             </div>
             <div class="review-meta">
-              <span class="reviewer-name"><%= review.reviewer_name || 'Anonymous' %></span>
-              <span class="review-date"><%= new Date(review.created_at).toLocaleDateString() %></span>
+              <span class="reviewer-name">
+                <%= review.reviewer_name || 'Anonymous' %>
+              </span>
+              <span class="review-date">
+                <%= new Date(review.created_at).toLocaleDateString() %>
+              </span>
             </div>
           </div>
           <div class="review-content">
-            <p><%= review.review_text %></p>
+            <p>
+              <%= review.review_text %>
+            </p>
           </div>
         </div>
-      <% }); %>
-    <% } else { %>
-      <p class="no-reviews">No reviews yet. Be the first to review this vehicle!</p>
-    <% } %>
+        <% }); %>
+          <% } else { %>
+            <p class="no-reviews">No reviews yet. Be the first to review this vehicle!</p>
+            <% } %>
   </div>
-  
+
   <!-- Review submission form (only for logged-in users) -->
   <% if (locals.user) { %>
     <div class="review-form-container">
       <h3>Write a Review</h3>
       <form id="reviewForm" action="/vehicles/<%= vehicle.inv_id %>/reviews" method="POST">
         <input type="hidden" name="vehicle_id" value="<%= vehicle.inv_id %>">
-        
+
         <div class="form-group">
           <label for="rating">Rating:</label>
           <select id="rating" name="rating" required>
@@ -50,53 +60,53 @@
             <option value="5">5 - Excellent</option>
           </select>
         </div>
-        
+
         <div class="form-group">
           <label for="review_text">Your Review:</label>
           <textarea id="review_text" name="review_text" rows="5" required></textarea>
           <div class="char-count"><span id="charCount">0</span>/1000 characters</div>
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Submit Review</button>
       </form>
     </div>
-    
+
     <!-- Client-side validation -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('reviewForm');
         const reviewText = document.getElementById('review_text');
         const charCount = document.getElementById('charCount');
-        
+
         // Character counter for review text
-        reviewText.addEventListener('input', function() {
+        reviewText.addEventListener('input', function () {
           const count = this.value.length;
           charCount.textContent = count;
-          
+
           // Optional: Add visual feedback if approaching limit
           if (count > 900) {
             charCount.classList.add('near-limit');
           } else {
             charCount.classList.remove('near-limit');
           }
-          
+
           // Prevent typing beyond 1000 characters
           if (count > 1000) {
             this.value = this.value.substring(0, 1000);
             charCount.textContent = 1000;
           }
         });
-        
+
         // Form validation before submission
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
           const rating = document.getElementById('rating').value;
           const reviewContent = reviewText.value.trim();
-          
+
           let isValid = true;
-          
+
           // Clear previous error messages
           document.querySelectorAll('.error-message').forEach(el => el.remove());
-          
+
           // Validate rating
           if (!rating) {
             isValid = false;
@@ -106,7 +116,7 @@
             errorMsg.textContent = 'Please select a rating';
             ratingField.parentNode.appendChild(errorMsg);
           }
-          
+
           // Validate review text
           if (!reviewContent) {
             isValid = false;
@@ -121,140 +131,16 @@
             errorMsg.textContent = 'Review must be at least 10 characters long';
             reviewText.parentNode.appendChild(errorMsg);
           }
-          
+
           if (!isValid) {
             event.preventDefault();
           }
         });
       });
     </script>
-  <% } else { %>
-    <div class="login-prompt">
-      <p>Please <a href="/account/login">log in</a> to leave a review.</p>
-    </div>
-  <% } %>
+    <% } else { %>
+      <div class="login-prompt">
+        <p>Please <a href="/account/login">log in</a> to leave a review.</p>
+      </div>
+      <% } %>
 </div>
-
-<style>
-  .vehicle-reviews-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .reviews-list {
-    margin-bottom: 30px;
-  }
-  
-  .review-card {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-  }
-  
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .rating {
-    font-size: 18px;
-  }
-  
-  .star {
-    color: #ccc;
-  }
-  
-  .star.filled {
-    color: #ffc107;
-  }
-  
-  .rating-value {
-    margin-left: 5px;
-    font-weight: bold;
-  }
-  
-  .review-meta {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .reviewer-name {
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-  .review-content {
-    line-height: 1.5;
-  }
-  
-  .no-reviews {
-    font-style: italic;
-    color: #666;
-  }
-  
-  .review-form-container {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 5px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  select, textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .char-count {
-    text-align: right;
-    font-size: 12px;
-    color: #666;
-    margin-top: 5px;
-  }
-  
-  .near-limit {
-    color: #ff6b6b;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0069d9;
-  }
-  
-  .login-prompt {
-    text-align: center;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-  }
-  
-  .error-message {
-    color: #dc3545;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-</style>
-
-<%- include('../partials/footer.ejs') %>

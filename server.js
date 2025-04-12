@@ -54,6 +54,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(utilities.checkJWTToken);
 
+// Fallback middleware to ensure loggedin is always defined
+app.use((req, res, next) => {
+  if (typeof res.locals.loggedin === "undefined") {
+    res.locals.loggedin = false;
+  }
+  next();
+});
+
 /* ***********************
  * View Engine and Templates
  *************************/

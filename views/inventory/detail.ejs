@@ -1,56 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= vehicleData.inv_make %>
-            <%= vehicleData.inv_model %>
-    </title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-
-<body>
-    <header>
-        <%- include('../../partials/header') %>
-    </header>
-    <nav>
-        <%- include('../../partials/navigation') %>
-    </nav>
-    <main>
-        <section class="vehicle-detail">
-            <h1>
-                <%= vehicleData.inv_make %>
-                    <%= vehicleData.inv_model %>
-            </h1>
-            <div class="vehicle-info">
-                <div class="vehicle-image">
-                    <img src="<%= vehicleData.inv_image %>"
-                        alt="<%= vehicleData.inv_make %> <%= vehicleData.inv_model %>">
-                </div>
-                <div class="vehicle-specs">
-                    <p class="price">Price: $<%= new Intl.NumberFormat('en-US').format(vehicleData.inv_price) %>
-                    </p>
-                    <p>Year: <%= vehicleData.inv_year %>
-                    </p>
-                    <p>Mileage: <%= new Intl.NumberFormat('en-US').format(vehicleData.inv_miles) %> miles</p>
-                    <p>Color: <%= vehicleData.inv_color %>
-                    </p>
-                    <p>Description: <%= vehicleData.inv_description %>
-                    </p>
-                </div>
+<main>
+    <section class="vehicle-detail">
+        <h1>
+            <%= vehicleData.inv_make %>
+                <%= vehicleData.inv_model %>
+        </h1>
+        <div class="vehicle-info">
+            <div class="vehicle-image">
+                <img src="<%= vehicleData.inv_image %>" alt="<%= vehicleData.inv_make %> <%= vehicleData.inv_model %>">
             </div>
-        </section>
+            <div class="vehicle-specs">
+                <p class="price">Price: $<%= new Intl.NumberFormat('en-US').format(vehicleData.inv_price) %>
+                </p>
+                <p>Year: <%= vehicleData.inv_year %>
+                </p>
+                <p>Mileage: <%= new Intl.NumberFormat('en-US').format(vehicleData.inv_miles) %> miles</p>
+                <p>Color: <%= vehicleData.inv_color %>
+                </p>
+                <p>Description: <%= vehicleData.inv_description %>
+                </p>
+            </div>
+        </div>
+    </section>
 
-        <!-- Vehicle Reviews Section -->
-        <section class="vehicle-reviews">
-            <%- include('vehicle_reviews', { vehicleId: vehicleData.inv_id, reviews: reviewsList }) %>
-        </section>
-    </main>
-    <footer>
-        <%- include('../../partials/footer') %>
-    </footer>
-</body>
-
-</html>
+    <!-- Vehicle Reviews Section -->
+    <section class="vehicle-reviews">
+        <%- include('vehicle_reviews', { vehicle: vehicleData, reviews: reviews }) %>
+    </section>
+</main>
