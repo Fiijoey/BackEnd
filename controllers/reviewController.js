@@ -4,7 +4,6 @@
  */
 
 const reviewModel = require("../models/review-model");
-const { validateReview } = require("../utilities/review-validation");
 const utilities = require("../utilities/");
 
 /**
@@ -77,23 +76,6 @@ async function addReview(req, res, next) {
     // Extract review data from request body
     const { vehicleId, rating, reviewText } = req.body;
     const account_id = req.session.account_id;
-
-    // Validate review data
-    const validationResult = validateReview({ vehicleId, rating, reviewText });
-
-    if (!validationResult.valid) {
-      // Handle API requests
-      if (req.originalUrl.includes("/api")) {
-        return res.status(400).json({
-          message: "Invalid review data",
-          errors: validationResult.errors,
-        });
-      }
-
-      // Handle web requests
-      req.flash("notice", validationResult.errors.join(", "));
-      return res.redirect(`/inventory/detail/${vehicleId}`);
-    }
 
     // Prepare review data for insertion
     const reviewData = {

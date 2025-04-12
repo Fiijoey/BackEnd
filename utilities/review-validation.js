@@ -1,4 +1,4 @@
-const { body, validationResult } = require('express-validator');
+const { body, validationResult } = require("express-validator");
 
 /**
  * Defines validation rules for vehicle reviews
@@ -7,25 +7,25 @@ const { body, validationResult } = require('express-validator');
 const reviewRules = () => {
   return [
     // Validate rating - must be between 1 and 5
-    body('rating')
+    body("rating")
       .notEmpty()
-      .withMessage('Rating is required')
+      .withMessage("Rating is required")
       .isInt({ min: 1, max: 5 })
-      .withMessage('Rating must be a number between 1 and 5'),
-    
+      .withMessage("Rating must be a number between 1 and 5"),
+
     // Validate review text - must not be empty
-    body('reviewText')
+    body("reviewText")
       .notEmpty()
-      .withMessage('Review text is required')
+      .withMessage("Review text is required")
       .isLength({ min: 3, max: 1000 })
-      .withMessage('Review text must be between 3 and 1000 characters'),
-    
-    // Validate vehicle_id - must exist
-    body('vehicle_id')
+      .withMessage("Review text must be between 3 and 1000 characters"),
+
+    // Validate vehicleId - must exist
+    body("vehicleId")
       .notEmpty()
-      .withMessage('Vehicle ID is required')
+      .withMessage("Vehicle ID is required")
       .isInt()
-      .withMessage('Vehicle ID must be a number')
+      .withMessage("Vehicle ID must be a number"),
   ];
 };
 
@@ -38,18 +38,18 @@ const reviewRules = () => {
  */
 const checkValidationResults = (req, res, next) => {
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
-    return res.status(400).json({ 
+    return res.status(400).json({
       errors: errors.array(),
-      message: 'Validation failed'
+      message: "Validation failed",
     });
   }
-  
+
   next();
 };
 
 module.exports = {
   reviewRules,
-  checkValidationResults
+  checkValidationResults,
 };

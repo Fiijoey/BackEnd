@@ -43,11 +43,11 @@
   </div>
 
   <!-- Review submission form (only for logged-in users) -->
-  <% if (locals.user) { %>
+  <% if (loggedin) { %>
     <div class="review-form-container">
       <h3>Write a Review</h3>
-      <form id="reviewForm" action="/vehicles/<%= vehicle.inv_id %>/reviews" method="POST">
-        <input type="hidden" name="vehicle_id" value="<%= vehicle.inv_id %>">
+      <form id="reviewForm" action="/reviews" method="POST">
+        <input type="hidden" name="vehicleId" value="<%= vehicle.inv_id %>">
 
         <div class="form-group">
           <label for="rating">Rating:</label>

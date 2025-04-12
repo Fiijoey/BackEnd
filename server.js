@@ -17,6 +17,7 @@ const utilities = require("./utilities");
 const session = require("express-session");
 const pool = require("./database/");
 const accountRoute = require("./routes/accountRoute");
+const reviewRoute = require("./routes/reviewRoute");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -79,6 +80,8 @@ app.get("/", baseController.buildHome);
 app.use("/inv", inventoryRoute);
 //Account Routes
 app.use("/account", accountRoute);
+//Review Routes
+app.use("/reviews", reviewRoute);
 // Direct route to inventory management
 app.get("/inv", invController.buildInvManagement);
 //File Not Found Route - must be last route in list
