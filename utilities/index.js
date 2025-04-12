@@ -107,7 +107,7 @@ Util.buildClassificationList = async function (
 ) {
   let data = await require("../models/inventory-model").getClassifications();
   let classificationList =
-    '<select name="classification_id" id="classification_id" class="form-select" required>';
+    '<select name="classification_id" id="classification_id" required>';
   classificationList += "<option value=''>Choose a Classification</option>";
   data.rows.forEach((row) => {
     classificationList += '<option value="' + row.classification_id + '"';
@@ -137,12 +137,12 @@ Util.checkJWTToken = (req, res, next) => {
           return res.redirect("/account/login");
         }
         res.locals.accountData = accountData;
-        res.locals.loggedin = 1;
+        res.locals.loggedin = true;
         next();
       }
     );
   } else {
-    res.locals.loggedin = false; // Ensure loggedin is defined for views
+    res.locals.loggedin = false;
     next();
   }
 };

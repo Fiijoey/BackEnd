@@ -1,27 +1,29 @@
-<h1>
-    <%= vehicleData.make %>
-        <%= vehicleData.model %>
-</h1>
+<main>
+    <section class="vehicle-detail">
+        <h1>
+            <%= vehicle.inv_make %>
+                <%= vehicle.inv_model %>
+        </h1>
+        <div class="vehicle-info">
+            <div class="vehicle-image">
+                <img src="<%= vehicle.inv_image %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+            </div>
+            <div class="vehicle-specs">
+                <p class="price">Price: $<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %>
+                </p>
+                <p>Year: <%= vehicle.inv_year %>
+                </p>
+                <p>Mileage: <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %> miles</p>
+                <p>Color: <%= vehicle.inv_color %>
+                </p>
+            </div>
+        </div>
+        <p class="vehi_desc">Description: <%= vehicle.inv_description %>
+        </p>
+    </section>
 
-<div class="detail_container">
-    <img src="<%= vehicleData.image %>" alt="<%= vehicleData.make %> <%= vehicleData.model %>" class="vehicle-image">
-
-    <div class="vehi_spec">
-        <p><strong>Year:</strong>
-            <%= vehicleData.year %>
-        </p>
-        <p><strong>Price:</strong>
-            <%= vehicleData.price %>
-        </p>
-        <p><strong>Mileage:</strong>
-            <%= vehicleData.mileage %> miles
-        </p>
-        <p><strong>Color:</strong>
-            <%= vehicleData.color %>
-        </p>
-    </div>
-</div>
-
-<p class="vehi_desc"><strong>Description:</strong>
-    <%= vehicleData.description %>
-</p>
+    <!-- Vehicle Reviews Section -->
+    <section class="vehicle-reviews">
+        <%- include('vehicle_reviews', { vehicle: vehicle, reviews: reviews }) %>
+    </section>
+</main>

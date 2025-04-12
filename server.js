@@ -17,6 +17,7 @@ const utilities = require("./utilities");
 const session = require("express-session");
 const pool = require("./database/");
 const accountRoute = require("./routes/accountRoute");
+const reviewRoutes = require("./routes/reviewRoute");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -54,6 +55,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(utilities.checkJWTToken);
 
+// Fallback middleware to ensure loggedin is always defined
+app.use((req, res, next) => {
+  if (typeof res.locals.loggedin === "undefined") {
+    res.locals.loggedin = false;
+  }
+  next();
+});
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -71,6 +80,8 @@ app.get("/", baseController.buildHome);
 app.use("/inv", inventoryRoute);
 //Account Routes
 app.use("/account", accountRoute);
+//Review Routes
+app.use("/reviews", reviewRoutes);
 // Direct route to inventory management
 app.get("/inv", invController.buildInvManagement);
 //File Not Found Route - must be last route in list
