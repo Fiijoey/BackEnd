@@ -23,11 +23,12 @@ async function getReviewsByVehicleId(inv_id) {
 
     return result.rows;
   } catch (error) {
-    logger.error(`Error retrieving reviews for vehicle ${inv_id}: ${error.message}`);
+    logger.error(
+      `Error retrieving reviews for vehicle ${inv_id}: ${error.message}`
+    );
     throw new Error(`Unable to get reviews: ${error.message}`);
   }
 }
-
 /**
  * Insert a new review into the database
  * @param {Object} reviewData - Object containing review data
@@ -39,25 +40,23 @@ async function getReviewsByVehicleId(inv_id) {
  */
 async function insertReview(reviewData) {
   try {
-    const { inv_id, account_id, rating, review_text } = reviewData;
-
-    // Validate required fields
-    if (!inv_id || !account_id || !rating || !review_text) {
-      throw new Error("All review fields (inv_id, account_id, rating, review_text) are required");
-    }
-
-    // Ensure `rating` is within valid bounds
-    if (rating < 1 || rating > 5) {
-      throw new Error("Rating must be between 1 and 5");
-    }
-
     const sql = `
-      INSERT INTO review (inv_id, account_id, rating, review_text, created_at)
+      INSERT INTO review (
+      inv_id, account_id, 
+      rating, 
+      review_text, 
+      created_at
+      )
       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP)
       RETURNING *
     `;
-    const result = await pool.query(sql, [inv_id, account_id, rating, review_text]);
-
+    const params = [
+      reviewData.inv_id,
+      reviewData.account_id,
+      reviewData.rating,
+      reviewData.review_text,
+    ];
+    const result = await pool.query(sql, params);
     return result.rows[0];
   } catch (error) {
     logger.error(`Error inserting review: ${error.message}`);

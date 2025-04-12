@@ -54,7 +54,7 @@ async function addReview(req, res, next) {
           .map((err) => err.msg)
           .join(" ")
       );
-      return res.redirect(`/inventory/detail/${req.body.inv_id}`);
+      return res.redirect(`/inv/detail/${req.body.inv_id}`);
     }
 
     // Extract and sanitize data
@@ -72,7 +72,7 @@ async function addReview(req, res, next) {
     const result = await reviewModel.insertReview(reviewData);
     if (result) {
       req.flash("notice", "Review added successfully");
-      return res.redirect(`/inventory/detail/${inv_id}`);
+      return res.redirect(`/inv/detail/${inv_id}`);
     } else {
       throw new Error("Failed to add review");
     }
