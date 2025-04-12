@@ -39,7 +39,7 @@ async function getVehicleReviews(req, res, next) {
  */
 async function addReview(req, res, next) {
   try {
-    if (!req.session.loggedin) {
+    if (!res.locals.loggedin) {
       req.flash("notice", "You must be logged in to add a review");
       return res.redirect("/account/login");
     }
@@ -59,7 +59,7 @@ async function addReview(req, res, next) {
 
     // Extract and sanitize data
     const { inv_id, rating, reviewText } = req.body;
-    const account_id = req.session.account_id;
+    const account_id = res.locals.accountData.account_id;
 
     const reviewData = {
       account_id,
