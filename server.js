@@ -20,6 +20,7 @@ const accountRoute = require("./routes/accountRoute");
 const reviewRoutes = require("./routes/reviewRoute");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const authorizeEmployeeAdmin = require("./utilities/authorizeEmployeeAdmin");
 
 /* ***********************
  * Middleware
@@ -83,7 +84,7 @@ app.use("/account", accountRoute);
 //Review Routes
 app.use("/reviews", reviewRoutes);
 // Direct route to inventory management
-app.get("/inv", invController.buildInvManagement);
+app.get("/inv", authorizeEmployeeAdmin, invController.buildInvManagement);
 //File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." });
